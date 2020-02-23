@@ -14,7 +14,7 @@
     enable = true;
 
     allowedUDPPorts = [ 631 ];
-    allowedTCPPorts = [ 22 631 ];
+    allowedTCPPorts = [ 22 631 8200 ];
   };
 
   services.avahi = {
@@ -24,6 +24,19 @@
       enable = true;
       userServices = true;
     };
+  };
+
+  fileSystems."/ext-hdd" = {
+    device = "/dev/disk/by-uuid/cdd78331-c78f-4fd5-9ae1-c6b9dc5a9fa4";
+    fsType = "ext4";
+  };
+
+  services.minidlna = {
+    enable = true;
+    announceInterval = 30;
+    mediaDirs = [
+      "V,/ext-hdd/Video"
+    ];
   };
 
 }
